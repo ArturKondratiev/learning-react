@@ -16,12 +16,10 @@ export default function App() {
   return (
     <Router>
       <NavBar />
-
       <Routes>
         <Route path="/" element={ <Home />} />
         <Route path="/table" element={ <CustomTable />} />
       </Routes>
-
     </Router>
   )
 }
