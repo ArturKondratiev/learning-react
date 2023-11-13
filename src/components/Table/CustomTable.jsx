@@ -4,16 +4,14 @@ import { useEffect, useState } from 'react';
 import { Table } from '@mui/joy';
 import TextField from '@mui/material/TextField';
 
-// Module not found: Error: Can't resolve '../../api/utils' in '/learning-react/src/components/Table'
-import { useUtils } from '../../api/utils';
+import { getAllUsers }  from '../../api/utils';
 
 export default function CustomTable() {
   const [users, setUsers] = useState([]);
-  const { getAllUsers } = useUtils();
-
+  
   useEffect(() => {
-    setUsers(getAllUsers);
-  }, [getAllUsers]);
+    getAllUsers().then((result) => setUsers(result));
+  }, []);
 
   return(
     <>
