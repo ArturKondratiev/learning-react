@@ -8,6 +8,8 @@ import { getAllUsers }  from '../../api/utils';
 
 export default function CustomTable() {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [, setSearchField ] = useState('');
   const [filteredUsers, setFilteredUsers] = useState([])
   
@@ -15,6 +17,12 @@ export default function CustomTable() {
     getAllUsers().then((result) => {
       setUsers(result);
       setFilteredUsers(result);
+    }).catch(err => {
+      console.log(err)
+      setError(err)
+    })
+    .finally(() => {
+      setLoading(false)
     });
   }, []);
 
@@ -31,6 +39,8 @@ export default function CustomTable() {
   return (
     <>
       <TextField id="standard-basic" label="Search user" variant="standard" onChange={handleSearchField} />
+        {loading && <p>Loading...</p>}
+        {error && <p>There was an error loading the users</p>}
       <Table
         color="primary"
         size="md"
