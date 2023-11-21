@@ -1,12 +1,12 @@
-import React, { useCallback } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 import { Table } from '@mui/joy';
 import TextField from '@mui/material/TextField';
 
-import { getAllUsers }  from '../../api/utils';
+import { useUtils }  from '../../api/utils';
 
 export default function CustomTable() {
+  const { getAllUsers } = useUtils();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,7 +24,7 @@ export default function CustomTable() {
     .finally(() => {
       setLoading(false)
     });
-  }, []);
+  }, [getAllUsers]);
 
   const handleSearchField = useCallback((e) => {
     const searchValue = e.target.value;
