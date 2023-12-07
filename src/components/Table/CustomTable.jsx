@@ -5,6 +5,9 @@ import TextField from '@mui/material/TextField';
 
 import { useUtils }  from '../../api/utils';
 
+import store from '../../store/store.ts';
+import { addUsers } from '../../store/usersSlice';
+
 export default function CustomTable() {
   const { getAllUsers } = useUtils();
   const [users, setUsers] = useState([]);
@@ -16,6 +19,7 @@ export default function CustomTable() {
   useEffect(() => {
     getAllUsers().then((result) => {
       setUsers(result);
+      store.dispatch(addUsers(result));
       setFilteredUsers(result);
     }).catch(err => {
       console.log(err)
