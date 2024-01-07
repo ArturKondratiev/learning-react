@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 
 import { createCustomer } from "../../store/customerSlice";
 
@@ -8,13 +8,12 @@ export default function Home() {
   const [age, setAge] = useState('');
 
   const dispatch = useDispatch();
-  const fullNameState = useSelector((state) => state);
   
   const handleCustomer = useCallback(() => {
     if (!fullName || !age) return;
-    dispatch(createCustomer(fullName, age));
-    console.log(fullNameState);
-  },[age, dispatch, fullName, fullNameState]);
+    const createdAt = new Date().toISOString();
+    dispatch(createCustomer({fullName, age, createdAt}));
+  },[age, dispatch, fullName]);
 
   return(
     <>
